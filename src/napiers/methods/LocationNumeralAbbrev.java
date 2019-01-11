@@ -155,7 +155,6 @@ public class LocationNumeralAbbrev implements INapiersMethod {
     private int getPairs(int count)
     {
         return count / 2;
-
     }
 
     /**
