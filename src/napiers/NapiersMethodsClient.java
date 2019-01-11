@@ -4,9 +4,9 @@ import java.util.*;
 
 /**
  * Demonstration of Napiers Location Numerals, following methods demonstrate:
- *  - location numeral to int
- *  - int to location numeral
- *  - location numeral abbreviation process
+ *  - conversion of location numeral to int
+ *  - conversion of int to location numeral
+ *  - abbreviation of extended form of a location numeral
  *
  * see: https://en.wikipedia.org/wiki/Location_arithmetic#Location_Numerals
  */
