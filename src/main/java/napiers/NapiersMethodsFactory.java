@@ -1,8 +1,6 @@
 package napiers;
 
-import napiers.methods.IntToLocationNumeral;
-import napiers.methods.LocationNumeralAbbrev;
-import napiers.methods.LocationNumeralToInt;
+import napiers.methods.*;
 
 /**
  * Factory for Napiers methods. Provides a method given input.

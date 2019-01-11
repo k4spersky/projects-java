@@ -1,6 +1,6 @@
 package napiers;
 
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Demonstration of Napiers Location Numerals, following methods demonstrate:
