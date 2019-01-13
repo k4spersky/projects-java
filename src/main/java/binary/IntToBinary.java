@@ -25,19 +25,23 @@ public class IntToBinary {
     {
         for (int val : t)
         {
-            if (n < 0)
-                break;
-
-            int res = n / val;
-
-            if (res == 1)
+            if (0 < n && n < 256)
             {
-                sb.append("1");
-                n = n - val;
+                int res = n / val;
+
+                if (res == 1)
+                {
+                    sb.append("1");
+                    n = n - val;
+                }
+                else if (res == 0)
+                {
+                    sb.append("0");
+                }
             }
-            else if (res == 0)
+            else
             {
-                sb.append("0");
+                break;
             }
         }
     }
