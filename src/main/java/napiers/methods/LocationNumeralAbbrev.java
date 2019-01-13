@@ -75,16 +75,14 @@ public class LocationNumeralAbbrev implements INapiersMethod {
         }
         input = sb.toString();
 
-        final List<String> sbStr = Arrays.asList(input.split(""));
-        final Set<String> deDupedInput = new HashSet<>(sbStr);
+        final List<String> ans = Arrays.asList(input.split(""));
+        final Set<String> dedupedInput = new HashSet<>(ans);
 
         // if the set of input is of same size as our abbreviated list of input, we abbreviated
         // the location numeral in its entirety, stop recursion
-        if (deDupedInput.size() == sbStr.size())
+        if (dedupedInput.size() == ans.size())
         {
             // sort and print the abbreviated result
-            final List<String> ans = Arrays.asList(input.split(""));
-
             sort(ans);
 
             System.out.print("ans: ");
