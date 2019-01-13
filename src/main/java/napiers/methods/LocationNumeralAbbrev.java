@@ -108,7 +108,7 @@ public class LocationNumeralAbbrev implements INapiersMethod {
         else
         {
             // we have pairs and an odd letter remaining
-            abbrevPairsAndOdds(count, mod, length, i, sb);
+            abbrevPairsAndOdd(count, mod, length, i, sb);
         }
     }
 
@@ -135,7 +135,7 @@ public class LocationNumeralAbbrev implements INapiersMethod {
     }
 
     /**
-     * Abbreviates pairs AND odd letters of same type in the location numeral. Examples of abbreviations:
+     * Abbreviates letter pairs AND odd letter of same type in the location numeral. Examples of abbreviations:
      *
      * "aaa" -> "ab"
      * "ccccc" -> "cdd" -> "ce"
@@ -146,7 +146,7 @@ public class LocationNumeralAbbrev implements INapiersMethod {
      * @param i current index
      * @param sb string builder
      */
-    private void abbrevPairsAndOdds(int count, int mod, int length, int i, StringBuilder sb)
+    private void abbrevPairsAndOdd(int count, int mod, int length, int i, StringBuilder sb)
     {
         abbrevPairs(getPairs(count, mod), length, i, sb);
 
