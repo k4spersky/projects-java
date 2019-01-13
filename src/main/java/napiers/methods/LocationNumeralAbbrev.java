@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Collections.sort;
+
 /**
  * Abbreviation process for a location numeral. For more details see:
  *
@@ -20,15 +22,19 @@ public class LocationNumeralAbbrev implements INapiersMethod {
     public void convert()
     {
         System.out.println("Enter location numeral below");
+
         final String input = SC.next();
-        StringBuilder sb = new StringBuilder();
-        int len = input.length();
+        final StringBuilder sb = new StringBuilder();
+        final int len = input.length();
 
         abbreviateLocNumeral(input, sb, len);
     }
 
     /**
      * Converts the extended form of location numeral to its abbreviated form.
+     *
+     * Each digit in a location numeral represents twice the value of its next-lower digit, replacing any two occurrences
+     * of the same digit with one of the next-higher digit does not change the numeral's numeric value.
      *
      * "abccdefghh" -> "abddefghh" -> "abeefghh" -> "abffghh" -> "abgghh" -> "abhhh" -> "abhi"
      *
@@ -54,17 +60,7 @@ public class LocationNumeralAbbrev implements INapiersMethod {
                 // we do not need to abbreviate if the letter is unique in input (e.g. only 1 of "a")
                 if (count > 1)
                 {
-                    int mod = count % 2;
-                    // check for even number, then we only have pairs
-                    if (mod == 0)
-                    {
-                        abbrevPairs(getPairs(count), count, length, i, sb);
-                    }
-                    else
-                    {
-                        // we have pairs and an odd letter remaining
-                        abbrevPairsAndOdds(count, mod, length, i, sb);
-                    }
+                    abbreviate(count, length, i, sb);
                 }
                 else
                 {
@@ -86,7 +82,13 @@ public class LocationNumeralAbbrev implements INapiersMethod {
         // the location numeral in its entirety, stop recursion
         if (deDupedInput.size() == sbStr.size())
         {
-            System.out.println(String.format("ans: %s", input));
+            // sort and print the abbreviated result
+            final List<String> ans = Arrays.asList(input.split(""));
+
+            sort(ans);
+
+            System.out.print("ans: ");
+            ans.forEach(System.out::print);
             return;
         }
 
@@ -95,23 +97,35 @@ public class LocationNumeralAbbrev implements INapiersMethod {
         abbreviateLocNumeral(input, sb, input.length());
     }
 
+    private void abbreviate(int count, int length, int i, StringBuilder sb)
+    {
+        final int mod = count % 2;
+        // check for even number, then we only have pairs
+        if (mod == 0)
+        {
+            abbrevPairs(getPairs(count), length, i, sb);
+        }
+        else
+        {
+            // we have pairs and an odd letter remaining
+            abbrevPairsAndOdds(count, mod, length, i, sb);
+        }
+    }
+
     // helper methods
 
     /**
-     * Abbreviates pairs with letters of same type in the location numeral. Each digit in a location numeral
-     * represents twice the value of its next-lower digit, replacing any two occurrences of the same digit
-     * with one of the next-higher digit does not change the numeral's numeric value. Examples of abbreviations:
+     * Abbreviates pairs with letters of same type in the location numeral. Examples of abbreviations:
      *
      * "aa" -> "b"
-     * "dddd" -> "f"
+     * "dddd" -> "cc" -> "f"
      *
      * @param pairs number of pairs with letter of same type
-     * @param count number of letters of same type
      * @param length current length of input
      * @param i current index
      * @param sb string builder
      */
-    private void abbrevPairs(int pairs, int count, int length, int i, StringBuilder sb)
+    private void abbrevPairs(int pairs, int length, int i, StringBuilder sb)
     {
         for (int j = 0; j < pairs; j++)
         {
@@ -121,12 +135,10 @@ public class LocationNumeralAbbrev implements INapiersMethod {
     }
 
     /**
-     * Abbreviates pairs and odd letters of same type in the location numeral. Each digit in a location numeral
-     * represents twice the value of its next-lower digit, replacing any two occurrences of the same digit
-     * with one of the next-higher digit does not change the numeral's numeric value. Examples of abbreviations:
+     * Abbreviates pairs AND odd letters of same type in the location numeral. Examples of abbreviations:
      *
      * "aaa" -> "ab"
-     * "ccccc" -> "ce"
+     * "ccccc" -> "cdd" -> "ce"
      *
      * @param count number of letters of same type
      * @param mod remainder of count
@@ -136,13 +148,11 @@ public class LocationNumeralAbbrev implements INapiersMethod {
      */
     private void abbrevPairsAndOdds(int count, int mod, int length, int i, StringBuilder sb)
     {
-        abbrevPairs(getPairs(count, mod), count, length, i, sb);
+        abbrevPairs(getPairs(count, mod), length, i, sb);
 
-        for (int y = 0; y < mod; y++)
-        {
-            sb.append(ALPHABET_STR[i]);
-            length -= 1;
-        }
+        // add the odd letter
+        sb.append(ALPHABET_STR[i]);
+        length -= 1;
     }
 
     /**
