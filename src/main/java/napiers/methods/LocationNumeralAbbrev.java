@@ -158,7 +158,7 @@ public class LocationNumeralAbbrev implements INapiersMethod {
      * when given an even number of letters of same type e.g. 4 of "a".
      *
      * @param count number of letters of same type
-     * @return number of pairs of letters of same type e.g. 5 of "a" -> return: 2
+     * @return number of pairs of letters of same type e.g. 4 of "a" -> return: 2
      */
     private int getPairs(int count)
     {
