@@ -5,27 +5,37 @@ import napiers.INapiersMethod;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Conversion of int number to location numeral.
  */
-public class IntToLocationNumeral implements INapiersMethod {
+public class IntToLocationNumeral extends NapiersMethodsBase implements INapiersMethod {
+
+    @Override
+    public String getInput()
+    {
+        System.out.println("Enter integer below");
+        return SC.next();
+    }
 
     /**
      * A set up method to provide data to {@link #intToLocNumeral}
      */
-    public void convert()
+    @Override
+    public String convert(String input)
     {
-        System.out.println("Enter integer below");
-        final int input = SC.nextInt();
-        final List<Character> sb = new ArrayList<>();
+        final List<Character> locNumeralChars = new ArrayList<>();
 
-        intToLocNumeral(input, sb);
+        intToLocNumeral(Integer.parseInt(input), locNumeralChars);
 
         // sort in alphabetical order
-        Collections.sort(sb);
-        System.out.print("ans: ");
-        sb.forEach(System.out::print);
+        Collections.sort(locNumeralChars);
+
+        final StringBuilder sb = new StringBuilder();
+        locNumeralChars.forEach(sb::append);
+
+        return sb.toString();
     }
 
     private void intToLocNumeral(int input, List<Character> sb)

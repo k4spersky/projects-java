@@ -14,20 +14,26 @@ import static java.util.Collections.sort;
  *
  * https://en.wikipedia.org/wiki/Location_arithmetic#Abbreviated_and_Extended_Form
  */
-public class LocationNumeralAbbrev implements INapiersMethod {
+public class LocationNumeralAbbrev extends NapiersMethodsBase implements INapiersMethod {
+
+    @Override
+    public String getInput() {
+        System.out.println("Enter location numeral below");
+        return SC.next();
+    }
 
     /**
      * Provides input data to {@link #abbreviateLocNumeral(String, StringBuilder, int)} via system input.
      */
-    public void convert()
+    @Override
+    public String convert(String input)
     {
-        System.out.println("Enter location numeral below");
-
-        final String input = SC.next();
         final StringBuilder sb = new StringBuilder();
         final int len = input.length();
 
         abbreviateLocNumeral(input, sb, len);
+
+        return m_abbrevLocNumeral.toString();
     }
 
     /**
@@ -85,8 +91,8 @@ public class LocationNumeralAbbrev implements INapiersMethod {
             // sort and print the abbreviated result
             sort(ans);
 
-            System.out.print("ans: ");
-            ans.forEach(System.out::print);
+            ans.forEach(m_abbrevLocNumeral::append);
+
             return;
         }
 
@@ -177,4 +183,6 @@ public class LocationNumeralAbbrev implements INapiersMethod {
     {
         return (count - mod) / 2;
     }
+
+    private final StringBuilder m_abbrevLocNumeral = new StringBuilder();
 }

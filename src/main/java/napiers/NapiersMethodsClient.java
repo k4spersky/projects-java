@@ -1,5 +1,7 @@
 package napiers;
 
+import napiers.methods.NapiersMethodsBase;
+
 import java.util.Scanner;
 
 /**
@@ -20,8 +22,8 @@ public class NapiersMethodsClient {
         final Scanner sc = new Scanner(System.in);
 
         final NapiersMethodsFactory nmf = new NapiersMethodsFactory();
-        final INapiersMethod nm = nmf.getNapiersMethod(sc.next());
+        final NapiersMethodsBase nm = nmf.getNapiersMethod(sc.next());
 
-        nm.convert();
+        System.out.print(String.format("ans: %s", nm.convert(nm.getInput())));
     }
 }

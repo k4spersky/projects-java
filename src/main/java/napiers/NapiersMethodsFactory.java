@@ -7,9 +7,9 @@ import napiers.methods.*;
  */
 public class NapiersMethodsFactory {
 
-    protected INapiersMethod getNapiersMethod(String mtype)
+    protected NapiersMethodsBase getNapiersMethod(String mtype)
     {
-        INapiersMethod nmethod = null;
+        NapiersMethodsBase nmethod = null;
         switch (mtype)
         {
             case "1":

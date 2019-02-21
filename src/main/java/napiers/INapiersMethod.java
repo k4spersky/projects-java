@@ -7,8 +7,6 @@ import java.util.Scanner;
  */
 public interface INapiersMethod {
 
-    void convert();
-
     String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
     char[] ALPHABET_CHAR = ALPHABET.toCharArray();
     String[] ALPHABET_STR = ALPHABET.split("");

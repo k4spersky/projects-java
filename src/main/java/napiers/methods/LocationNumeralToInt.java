@@ -5,12 +5,19 @@ import napiers.INapiersMethod;
 /**
  * Conversion of location numeral to int number.
  */
-public class LocationNumeralToInt implements INapiersMethod {
+public class LocationNumeralToInt extends NapiersMethodsBase implements INapiersMethod {
 
-    public void convert()
+    @Override
+    public String getInput()
     {
         System.out.println("Enter location numeral below");
-        char[] locNum = SC.next().toCharArray();
+        return SC.next();
+    }
+
+    @Override
+    public String convert(String input)
+    {
+        char[] locNum = input.toCharArray();
         long sum = 0;
 
         for (char c : locNum) {
@@ -21,6 +28,6 @@ public class LocationNumeralToInt implements INapiersMethod {
                 }
             }
         }
-        System.out.println(String.format("ans: %s", sum));
+        return Long.toString(sum);
     }
 }
